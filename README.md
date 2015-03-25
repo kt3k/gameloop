@@ -20,7 +20,7 @@ setTimeout(function () {
 }, 5000);
 ```
 
-In the above example func is called 60 times per second and is stopped after 5 seconds.
+In the above example `func` is called 30 times per second and is stopped after 5 seconds.
 
 ## Set fps
 
@@ -32,7 +32,7 @@ loop.setFPS(60);
 loop.start(); // func is called 60 times per second
 ```
 
-In the above example `func` is called 60 time per second
+In the above example `func` is called 60 time per second.
 
 # API
 
@@ -46,7 +46,7 @@ Stops the game loop.
 
 ## setFPS
 
-Sets the fps of the loop.
+Sets the fps of the loop. (Default fps is 30.)
 
 # Install
 
