@@ -1,0 +1,22 @@
+{
+  "name": "gameloop",
+  "main": "gameloop.js",
+  "version": "0.0.0",
+  "authors": [
+    "Yoshiya Hinosawa <stibium121@gmail.com>"
+  ],
+  "description": "Simple game loop",
+  "keywords": [
+    "game",
+    "loop",
+    "gameloop"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
