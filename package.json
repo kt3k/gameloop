@@ -1,6 +1,6 @@
 {
   "name": "gameloopjs",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Simple game loop",
   "main": "gameloop.js",
   "scripts": {
