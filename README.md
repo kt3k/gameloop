@@ -83,6 +83,8 @@ var loop = gameloop(function () {
 
 });
 
+loop.start();
+
 </script>
 ```
 
