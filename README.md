@@ -36,15 +36,19 @@ In the above example `func` is called 60 time per second.
 
 # API
 
-## start
+## gameloop(func)
+
+Creates a game loop object.
+
+## loop.start()
 
 Starts the game loop.
 
-## stop
+## loop.stop()
 
 Stops the game loop.
 
-## setFPS
+## loop.setFPS(number)
 
 Sets the fps of the loop. (Default fps is 30.)
 
