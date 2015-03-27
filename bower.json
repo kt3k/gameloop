@@ -1,7 +1,7 @@
 {
   "name": "gameloop",
   "main": "gameloop.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Yoshiya Hinosawa <stibium121@gmail.com>"
   ],
