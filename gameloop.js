@@ -8,6 +8,7 @@
         this.main = main;
         this.setFPS(30);
         this.timer = null;
+        this.stopped = null;
 
     };
 
@@ -25,6 +26,8 @@
      * Starts the game loop.
      */
     pt.start = function () {
+
+        this.stopped = false;
 
         this.setTimer();
 
@@ -66,6 +69,14 @@
 
         var wait = this.frame - (this.startedAt - this.endedAt);
 
+
+        if (this.stopped) {
+
+            return;
+
+        }
+
+
         this.setTimer(wait);
 
     };
@@ -74,6 +85,8 @@
      * Stops the game loop.
      */
     pt.stop = function () {
+
+        this.stopped = true;
 
         // This must stop the loop immediately no matter when it is called.
         clearTimeout(this.timer);
