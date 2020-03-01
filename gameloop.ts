@@ -1,18 +1,25 @@
 class Gameloop {
-  constructor(main, fps = 30) {
+  main: () => void
+  timer: number | undefined
+  stopped: boolean
+  startedAt: number | undefined
+  endedAt: number | undefined
+  frame: number
+  fps: number
+  constructor(main: () => void, fps = 30) {
     this.main = main
-    this.setFps(fps)
-    this.timer = null
-    this.stopped = null
+    this.fps = fps
+    this.frame = 1000 / fps
+    this.stopped = true
   }
 
   /**
    * Starts the game loop.
    */
-  start() {
+  start(): void {
     this.stopped = false
 
-    this.setTimer()
+    this.setTimer(0)
   }
 
   /**
@@ -20,7 +27,7 @@ class Gameloop {
    *
    * @private
    */
-  setTimer(wait) {
+  setTimer(wait: number): void {
     this.timer = setTimeout(() => {
       this.step()
     }, wait)
@@ -31,7 +38,7 @@ class Gameloop {
    *
    * @private
    */
-  step() {
+  step(): void {
     this.startedAt = +new Date()
 
     if (typeof this.main === 'function') {
@@ -52,20 +59,12 @@ class Gameloop {
   /**
    * Stops the game loop.
    */
-  stop() {
+  stop(): void {
     this.stopped = true
 
     // This must stop the loop immediately no matter when it is called.
     clearTimeout(this.timer)
   }
-
-  /**
-   * Sets the frame per second.
-   */
-  setFps(fps) {
-    this.fps = fps
-    this.frame = 1000 / this.fps
-  }
 }
 
-module.exports = (main, fps) => new Gameloop(main, fps)
+export = (main: () => void, fps: number) => new Gameloop(main, fps)

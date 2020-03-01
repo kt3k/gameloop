@@ -2,9 +2,10 @@
   "name": "gameloopjs",
   "version": "0.1.1",
   "description": "Simple game loop",
-  "main": "gameloop.js",
+  "main": "dist/gameloop.js",
   "scripts": {
     "test": "grunt",
+    "dist": "tsc",
     "fmt": "prettier --write gameloop.js"
   },
   "repository": {
@@ -12,17 +13,17 @@
     "url": "git@github.com:kt3k/gameloop.git"
   },
   "keywords": [
-    "game",
-    "loop",
     "gameloop"
   ],
-  "author": "Yoshiya Hinosawa <stibium121@gmail.com> (https://twitter.com/kt3k)",
+  "author": "Yoshiya Hinosawa",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/kt3k/gameloop/issues"
   },
   "homepage": "https://github.com/kt3k/gameloop",
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "parcel-bundler": "^1.12.4",
+    "prettier": "^1.19.1",
+    "typescript": "^3.8.3"
   }
 }

@@ -7,17 +7,17 @@
 ## Basic Usage
 
 ```js
-var func = function () { console.log('step'); };
+const gameloop = require('gameloop')
 
-var loop = gameloop(func);
+const loop = gameloop(() => {
+  console.loog('step')
+})
 
-loop.start();
+loop.start()
 
-setTimeout(function () {
-
-    loop.stop();
-
-}, 5000);
+setTimeout(() => {
+  loop.stop()
+}, 5000)
 ```
 
 In the above example `func` is called 30 times per second and is stopped after 5 seconds.
@@ -25,18 +25,16 @@ In the above example `func` is called 30 times per second and is stopped after 5
 ## Set fps
 
 ```js
-var loop = gameloop(func);
+const loop = gameloop(func, 60)
 
-loop.setFPS(60);
-
-loop.start(); // func is called 60 times per second
+loop.start() // func is called 60 times per second
 ```
 
 In the above example `func` is called 60 time per second.
 
 # API
 
-## gameloop(func)
+## gameloop(func: () => void, fps: number)
 
 Creates a game loop object.
 
@@ -48,10 +46,6 @@ Starts the game loop.
 
 Stops the game loop.
 
-## loop.setFPS(number)
-
-Sets the fps of the loop. (Default fps is 30.)
-
 # Install
 
 ## Node.js
@@ -61,35 +55,11 @@ npm install --save gameloopjs
 ```
 
 ```js
-var gameloop = require('gameloopjs');
+const gameloop = require('gameloopjs')
 
+const loop = gameloop(() => { console.log('step') })
 
-var loop = gameloop(function () { console.log('step'); });
-
-loop.start();
-```
-
-
-## Browser
-
-```sh
-bower install --save gameloop
-```
-
-```html
-<script src="path/to/gameloop.js"></script>
-
-<script>
-
-var loop = gameloop(function () {
-
-    console.log('step');
-
-});
-
-loop.start();
-
-</script>
+loop.start()
 ```
 
 # License
