@@ -4,7 +4,8 @@
   "description": "Simple game loop",
   "main": "gameloop.js",
   "scripts": {
-    "test": "grunt"
+    "test": "grunt",
+    "fmt": "prettier --write gameloop.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/kt3k/gameloop/issues"
   },
-  "homepage": "https://github.com/kt3k/gameloop"
+  "homepage": "https://github.com/kt3k/gameloop",
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
 }

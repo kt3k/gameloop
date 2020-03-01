@@ -1,119 +1,93 @@
+(function() {
+  "use strict";
 
+  var Gameloop = function(main) {
+    this.main = main;
+    this.setFPS(30);
+    this.timer = null;
+    this.stopped = null;
+  };
 
-(function () {
-    'use strict';
+  var exports = function(main) {
+    return new Gameloop(main);
+  };
 
-    var Gameloop = function (main) {
+  var pt = (exports.prototype = Gameloop.prototype);
 
-        this.main = main;
-        this.setFPS(30);
-        this.timer = null;
-        this.stopped = null;
+  pt.constructor = exports;
 
-    };
+  /**
+   * Starts the game loop.
+   */
+  pt.start = function() {
+    this.stopped = false;
 
-    var exports = function (main) {
+    this.setTimer();
 
-        return new Gameloop(main);
+    return this;
+  };
 
-    };
+  /**
+   * Sets a timer for next frame.
+   *
+   * @private
+   */
+  pt.setTimer = function(wait) {
+    var that = this;
 
-    var pt = exports.prototype = Gameloop.prototype;
+    this.timer = setTimeout(function() {
+      that.step();
+    }, wait);
+  };
 
-    pt.constructor = exports;
+  /**
+   * Performs the step routine.
+   *
+   * @private
+   */
+  pt.step = function() {
+    this.startedAt = +new Date();
 
-    /**
-     * Starts the game loop.
-     */
-    pt.start = function () {
-
-        this.stopped = false;
-
-        this.setTimer();
-
-        return this;
-    };
-
-    /**
-     * Sets a timer for next frame.
-     *
-     * @private
-     */
-    pt.setTimer = function (wait) {
-
-        var that = this;
-
-        this.timer = setTimeout(function () {
-
-            that.step();
-
-        }, wait);
-    };
-
-    /**
-     * Performs the step routine.
-     *
-     * @private
-     */
-    pt.step = function () {
-
-        this.startedAt = +new Date();
-
-        if (typeof this.main === 'function') {
-
-            this.main();
-
-        }
-
-        this.endedAt = +new Date();
-
-        var wait = this.frame - (this.startedAt - this.endedAt);
-
-
-        if (this.stopped) {
-
-            return;
-
-        }
-
-
-        this.setTimer(wait);
-
-    };
-
-    /**
-     * Stops the game loop.
-     */
-    pt.stop = function () {
-
-        this.stopped = true;
-
-        // This must stop the loop immediately no matter when it is called.
-        clearTimeout(this.timer);
-
-        return this;
-
-    };
-
-    /**
-     * Sets the frame per second.
-     */
-    pt.setFPS = function (fps) {
-        this.fps = fps;
-        this.frame = 1000 / this.fps;
-
-        return this;
-    };
-
-
-    if (typeof module !== 'undefined' && module.exports) {
-
-        module.exports = exports;
-
-    } else if (typeof window !== 'undefined') {
-
-        window.gameloop = exports;
-
+    if (typeof this.main === "function") {
+      this.main();
     }
 
-}());
+    this.endedAt = +new Date();
+
+    var wait = this.frame - (this.startedAt - this.endedAt);
+
+    if (this.stopped) {
+      return;
+    }
+
+    this.setTimer(wait);
+  };
+
+  /**
+   * Stops the game loop.
+   */
+  pt.stop = function() {
+    this.stopped = true;
+
+    // This must stop the loop immediately no matter when it is called.
+    clearTimeout(this.timer);
+
+    return this;
+  };
+
+  /**
+   * Sets the frame per second.
+   */
+  pt.setFPS = function(fps) {
+    this.fps = fps;
+    this.frame = 1000 / this.fps;
+
+    return this;
+  };
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = exports;
+  } else if (typeof window !== "undefined") {
+    window.gameloop = exports;
+  }
+})();
