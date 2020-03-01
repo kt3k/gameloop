@@ -1,6 +1,6 @@
 {
   "name": "gameloopjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple game loop",
   "main": "dist/gameloop.js",
   "files": [
@@ -10,6 +10,7 @@
     "test": "ts-node test.ts",
     "cov": "nyc --reporter lcov npm t",
     "dist": "tsc",
+    "prepublish": "npm run dist",
     "fmt": "prettier --write gameloop.js"
   },
   "repository": {
