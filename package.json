@@ -1,8 +1,11 @@
 {
   "name": "gameloopjs",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Simple game loop",
   "main": "dist/gameloop.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "grunt",
     "dist": "tsc",

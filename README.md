@@ -1,4 +1,4 @@
-# gameloop v0.1.1
+# gameloop v0.2.0
 
 > Simple game loop
 
