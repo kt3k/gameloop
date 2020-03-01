@@ -1,93 +1,71 @@
-(function() {
-  "use strict";
-
-  var Gameloop = function(main) {
-    this.main = main;
-    this.setFPS(30);
-    this.timer = null;
-    this.stopped = null;
-  };
-
-  var exports = function(main) {
-    return new Gameloop(main);
-  };
-
-  var pt = (exports.prototype = Gameloop.prototype);
-
-  pt.constructor = exports;
+class Gameloop {
+  constructor(main, fps = 30) {
+    this.main = main
+    this.setFps(fps)
+    this.timer = null
+    this.stopped = null
+  }
 
   /**
    * Starts the game loop.
    */
-  pt.start = function() {
-    this.stopped = false;
+  start() {
+    this.stopped = false
 
-    this.setTimer();
-
-    return this;
-  };
+    this.setTimer()
+  }
 
   /**
    * Sets a timer for next frame.
    *
    * @private
    */
-  pt.setTimer = function(wait) {
-    var that = this;
-
-    this.timer = setTimeout(function() {
-      that.step();
-    }, wait);
-  };
+  setTimer(wait) {
+    this.timer = setTimeout(() => {
+      this.step()
+    }, wait)
+  }
 
   /**
    * Performs the step routine.
    *
    * @private
    */
-  pt.step = function() {
-    this.startedAt = +new Date();
+  step() {
+    this.startedAt = +new Date()
 
-    if (typeof this.main === "function") {
-      this.main();
+    if (typeof this.main === 'function') {
+      this.main()
     }
 
-    this.endedAt = +new Date();
+    this.endedAt = +new Date()
 
-    var wait = this.frame - (this.startedAt - this.endedAt);
+    const wait = this.frame - (this.startedAt - this.endedAt)
 
     if (this.stopped) {
-      return;
+      return
     }
 
-    this.setTimer(wait);
-  };
+    this.setTimer(wait)
+  }
 
   /**
    * Stops the game loop.
    */
-  pt.stop = function() {
-    this.stopped = true;
+  stop() {
+    this.stopped = true
 
     // This must stop the loop immediately no matter when it is called.
-    clearTimeout(this.timer);
-
-    return this;
-  };
+    clearTimeout(this.timer)
+  }
 
   /**
    * Sets the frame per second.
    */
-  pt.setFPS = function(fps) {
-    this.fps = fps;
-    this.frame = 1000 / this.fps;
-
-    return this;
-  };
-
-  if (typeof module !== "undefined" && module.exports) {
-    module.exports = exports;
-  } else if (typeof window !== "undefined") {
-    window.gameloop = exports;
+  setFps(fps) {
+    this.fps = fps
+    this.frame = 1000 / this.fps
   }
-})();
+}
+
+module.exports = (main, fps) => new Gameloop(main, fps)
