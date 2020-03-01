@@ -1,20 +1,25 @@
 import gameloop = require('./gameloop')
 import * as assert from 'assert'
 
-assert(typeof gameloop === 'function')
+async function test() {
+  assert(typeof gameloop === 'function')
 
-let cnt = 0
-const loop = gameloop(() => { cnt++ }, 30)
-loop.start()
+  let cnt = 0
+  const loop = gameloop(() => { cnt++ }, 30)
 
-setTimeout(async () => {
-  loop.stop()
+  setTimeout(async () => {
+    loop.stop()
+  }, 1005)
+
+  await loop.run()
+
 
   console.log(cnt)
   const x = cnt
   assert(cnt === 28 || cnt === 29)
 
-  setTimeout(() => {
-    assert.equal(cnt, x)
-  }, 1000)
-}, 1005)
+  await new Promise(resolve => setTimeout(() => resolve(), 1000))
+  assert.strictEqual(cnt, x)
+}
+
+test()

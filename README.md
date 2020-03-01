@@ -20,7 +20,7 @@ const loop = gameloop(() => {
   console.loog('step')
 }, 30)
 
-loop.start()
+loop.run()
 
 setTimeout(() => {
   loop.stop()
@@ -36,20 +36,20 @@ If you want to run func 60 times per sec, then do this:
 ```js
 const loop = gameloop(func, 60)
 
-loop.start() // func is called 60 times per second
+loop.run() // func is called 60 times per second
 ```
 
 # API
 
-## gameloop(func: () => void, fps: number)
+## `gameloop(func: () => void, fps: number)`
 
 Creates a game loop object.
 
-## loop.start()
+## `loop.run(): Promise<void>`
 
-Starts the game loop.
+Starts the game loop and returns a promise which will resolve when the loop is stopped.
 
-## loop.stop()
+## `loop.stop(): void`
 
 Stops the game loop.
 
