@@ -2,8 +2,6 @@ import gameloop = require('./gameloop')
 import * as assert from 'assert'
 
 async function test() {
-  assert(typeof gameloop === 'function')
-
   let cnt = 0
   const loop = gameloop(() => { cnt++ }, 30)
 
