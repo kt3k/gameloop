@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "ts-node test.ts",
-    "cov": "nyc npm t",
+    "cov": "nyc --reporter lcov npm t",
     "dist": "tsc",
     "fmt": "prettier --write gameloop.js"
   },
