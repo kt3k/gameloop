@@ -7,7 +7,8 @@
     "dist"
   ],
   "scripts": {
-    "test": "grunt",
+    "test": "ts-node test.ts",
+    "cov": "nyc npm t",
     "dist": "tsc",
     "fmt": "prettier --write gameloop.js"
   },
@@ -25,8 +26,11 @@
   },
   "homepage": "https://github.com/kt3k/gameloop",
   "devDependencies": {
+    "@types/node": "^13.7.7",
+    "nyc": "^15.0.0",
     "parcel-bundler": "^1.12.4",
     "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   }
 }

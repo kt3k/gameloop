@@ -2,16 +2,20 @@
 
 > Simple game loop
 
-# Usage
+# Install
 
-## Basic Usage
+```sh
+npm i --save gameloopjs
+```
+
+# Usage
 
 ```js
 const gameloop = require('gameloop')
 
 const loop = gameloop(() => {
   console.loog('step')
-})
+}, 30)
 
 loop.start()
 
@@ -22,15 +26,15 @@ setTimeout(() => {
 
 In the above example `func` is called 30 times per second and is stopped after 5 seconds.
 
-## Set fps
+## Set other fps
+
+If you want to run func 60 times per sec, then do this:
 
 ```js
 const loop = gameloop(func, 60)
 
 loop.start() // func is called 60 times per second
 ```
-
-In the above example `func` is called 60 time per second.
 
 # API
 
@@ -46,21 +50,6 @@ Starts the game loop.
 
 Stops the game loop.
 
-# Install
-
-## Node.js
-
-```sh
-npm install --save gameloopjs
-```
-
-```js
-const gameloop = require('gameloopjs')
-
-const loop = gameloop(() => { console.log('step') })
-
-loop.start()
-```
 
 # License
 
