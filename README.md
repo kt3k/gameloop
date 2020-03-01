@@ -1,4 +1,4 @@
-# gameloop v0.2.0
+# gameloop v1.0.0
 
 ![ci](https://github.com/kt3k/gameloop/workflows/ci/badge.svg)
 [![codecov](https://codecov.io/gh/kt3k/gameloop/branch/master/graph/badge.svg)](https://codecov.io/gh/kt3k/gameloop)

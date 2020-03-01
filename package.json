@@ -1,6 +1,6 @@
 {
   "name": "gameloopjs",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Simple game loop",
   "main": "dist/gameloop.js",
   "files": [
