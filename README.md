@@ -14,7 +14,7 @@ npm i --save gameloopjs
 # Usage
 
 ```js
-const gameloop = require('gameloop')
+const gameloop = require('gameloopjs') // or import gameloop = require('gameloopjs') if you use typescript.
 
 const loop = gameloop(() => {
   console.loog('step')
