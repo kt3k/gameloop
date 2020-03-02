@@ -10,7 +10,7 @@
     "test": "ts-node test.ts",
     "cov": "nyc --reporter lcov npm t",
     "dist": "tsc",
-    "prepublish": "npm run dist",
+    "prepublishOnly": "npm run dist",
     "fmt": "prettier --write gameloop.js"
   },
   "repository": {
