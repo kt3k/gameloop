@@ -34,7 +34,6 @@ class Gameloop {
    */
   stop(): void {
     this.resolve()
-    // This must stop the loop immediately no matter when it is called.
     clearTimeout(this.timer)
   }
 }
