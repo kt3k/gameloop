@@ -55,6 +55,10 @@ This throws when it's called during it's already running.
 
 Stops the game loop.
 
+## `loop.isRunning(): boolean`
+
+Returns true iff the loop if running.
+
 
 # License
 

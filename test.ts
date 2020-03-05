@@ -9,8 +9,11 @@ async function test() {
     loop.stop()
   }, 1005)
 
-  await loop.run()
+  const run = loop.run()
 
+  assert(loop.isRunning())
+
+  await run
 
   console.log(cnt)
   const x = cnt

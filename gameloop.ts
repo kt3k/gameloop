@@ -22,6 +22,13 @@ class Gameloop {
   }
 
   /**
+   * Returns true iff the loop is running.
+   */
+  isRunning(): boolean {
+    return this.resolve != null
+  }
+
+  /**
    * Performs the step routine.
    */
   step = (): void => {
