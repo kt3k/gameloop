@@ -12,6 +12,9 @@ class Gameloop {
    * Starts the game loop.
    */
   run(): Promise<void> {
+    if (this.resolve) {
+      return Promise.reject(new Error('The gameloop is already running.'))
+    }
     return new Promise((resolve, _) => {
       this.resolve = resolve
       this.step()
@@ -33,7 +36,12 @@ class Gameloop {
    * Stops the game loop.
    */
   stop(): void {
+    if (!this.resolve) {
+      console.warn('The gameloop isn\'t running.')
+      return
+    }
     this.resolve()
+    delete this.resolve
     clearTimeout(this.timer)
   }
 }

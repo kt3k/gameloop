@@ -14,10 +14,20 @@ async function test() {
 
   console.log(cnt)
   const x = cnt
-  assert(cnt === 28 || cnt === 29)
+  assert(cnt === 27 || cnt === 28 || cnt === 29)
 
   await new Promise(resolve => setTimeout(() => resolve(), 1000))
   assert.strictEqual(cnt, x)
+
+  await assert.rejects(async () => {
+    const loop = gameloop(() => { cnt++ }, 30)
+    setTimeout(() => { loop.stop() }, 0)
+    loop.run()
+    await loop.run()
+  })
 }
 
-test()
+test().catch(e => {
+  console.log(e.stack)
+  process.exit(1)
+})
