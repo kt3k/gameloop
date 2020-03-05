@@ -49,6 +49,8 @@ Creates a game loop object.
 
 Starts the game loop and returns a promise which will resolve when the loop is stopped.
 
+This throws when it's called during it's already running.
+
 ## `loop.stop(): void`
 
 Stops the game loop.
