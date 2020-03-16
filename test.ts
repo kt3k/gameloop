@@ -17,7 +17,7 @@ async function test() {
 
   console.log(cnt)
   const x = cnt
-  assert(cnt === 27 || cnt === 28 || cnt === 29)
+  assert(cnt === 27 || cnt === 28 || cnt === 29 || cnt === 30)
 
   await new Promise(resolve => setTimeout(() => resolve(), 1000))
   assert.strictEqual(cnt, x)
