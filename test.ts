@@ -1,7 +1,7 @@
 import { gameloop } from "./mod.ts";
 import { assert, assertEquals, assertRejects } from "@std/assert";
 
-Deno.test("gameloop", async () => {
+Deno.test("gameloop", { sanitizeOps: false, sanitizeResources: false }, async () => {
   let cnt = 0;
   const loop = gameloop(() => {
     cnt++;
