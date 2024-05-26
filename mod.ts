@@ -1,9 +1,3 @@
-/**
- * A simple game loop library.
- *
- * @module
- */
-
 export interface Gameloop {
   run(): Promise<void>;
   stop(): void;
