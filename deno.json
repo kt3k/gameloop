@@ -1,6 +1,6 @@
 {
   "name": "@kt3k/gameloop",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "exports": {
     ".": "./mod.ts"
   },
