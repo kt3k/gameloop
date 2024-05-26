@@ -1,7 +1,7 @@
 import { gameloop } from "./mod.ts";
-import { assert, assertEquals, assertRejects } from "@std/assert";
+import { assert, assertEquals, assertRejects, assertThrows } from "@std/assert";
 
-Deno.test("gameloop", { sanitizeOps: false, sanitizeResources: false }, async () => {
+Deno.test("gameloop", async () => {
   let cnt = 0;
   const loop = gameloop(() => {
     cnt++;
@@ -11,7 +11,7 @@ Deno.test("gameloop", { sanitizeOps: false, sanitizeResources: false }, async ()
     loop.stop();
   }, 1005);
 
-  const run = loop.run();
+  let run = loop.run();
 
   assert(loop.isRunning);
 
@@ -33,7 +33,17 @@ Deno.test("gameloop", { sanitizeOps: false, sanitizeResources: false }, async ()
     setTimeout(() => {
       loop.stop();
     }, 0);
-    loop.run();
-    await loop.run();
+    run = loop.run();
+    await loop.run(); // throws
+  });
+
+  await run;
+
+  // It throws at the 2nd run
+  assertThrows(() => {
+    const loop = gameloop(() => {
+      cnt++;
+    }, 30);
+    loop.stop(); // throws
   });
 });

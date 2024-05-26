@@ -48,8 +48,7 @@ class GameloopImpl {
   /** Stops the game loop. */
   stop(): void {
     if (!this.resolve) {
-      console.warn("The gameloop isn't running.");
-      return;
+      throw new Error("The gameloop isn't running.");
     }
     this.resolve();
     delete this.resolve;
