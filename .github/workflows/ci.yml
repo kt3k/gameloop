@@ -4,13 +4,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '10.x'
+      - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v1
       - run: |
-          yarn
-          yarn cov
-      - uses: codecov/codecov-action@v1
+          deno test --coverage
+          deno coverage --lcov > lcov.info
+      - uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

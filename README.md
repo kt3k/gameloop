@@ -1,42 +1,42 @@
 # gameloop v1.3.0
 
 ![ci](https://github.com/kt3k/gameloop/workflows/ci/badge.svg)
-[![codecov](https://codecov.io/gh/kt3k/gameloop/branch/master/graph/badge.svg)](https://codecov.io/gh/kt3k/gameloop)
+[![codecov](https://codecov.io/gh/kt3k/gameloop/branch/main/graph/badge.svg)](https://codecov.io/gh/kt3k/gameloop)
 
 > Simple game loop
 
 # Install
 
 ```sh
-npm i --save gameloopjs
+npx jsr add @kt3k/gameloop
 ```
 
 # Usage
 
 ```js
-const gameloop = require('gameloopjs') // or import gameloop = require('gameloopjs') if you use typescript.
+import { gameloop } from "@kt3k/gameloopjs";
 
 const loop = gameloop(() => {
-  console.loog('step')
-}, 30)
+  console.loog("step");
+}, 30);
 
-loop.run()
+loop.run();
 
 setTimeout(() => {
-  loop.stop()
-}, 5000)
+  loop.stop();
+}, 5000);
 ```
 
-In the above example `func` is called 30 times per second and is stopped after 5 seconds.
+`func` is called 30 times per second and is stopped after 5 seconds.
 
 ## Set other fps
 
-If you want to run func 60 times per sec, then do this:
+Set different number for fps:
 
 ```js
-const loop = gameloop(func, 60)
+const loop = gameloop(func, 60);
 
-loop.run() // func is called 60 times per second
+loop.run(); // runs at 60 fps
 ```
 
 # API
@@ -47,7 +47,8 @@ Creates a game loop object.
 
 ## `loop.run(): Promise<void>`
 
-Starts the game loop and returns a promise which will resolve when the loop is stopped.
+Starts the game loop and returns a promise which will resolve when the loop is
+stopped.
 
 This throws when it's called during it's already running.
 
@@ -55,10 +56,9 @@ This throws when it's called during it's already running.
 
 Stops the game loop.
 
-## `loop.isRunning(): boolean`
+## `loop.isRunning: boolean`
 
 Returns true iff the loop if running.
-
 
 # License
 
