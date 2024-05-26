@@ -1,6 +1,10 @@
+/** Gameloop object interface */
 export interface Gameloop {
+  /** Starts the game loop */
   run(): Promise<void>;
+  /** Stops the game loop */
   stop(): void;
+  /** Returns true iff the loop is running */
   get isRunning(): boolean;
 }
 
@@ -8,7 +12,7 @@ class GameloopImpl {
   main: () => void;
   timer: number | undefined;
   frame: number;
-  resolve: any;
+  resolve: undefined | (() => void);
   constructor(main: () => void, fps: number) {
     this.main = main;
     this.frame = 1000 / fps;
