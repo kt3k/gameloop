@@ -11,6 +11,12 @@
 npx jsr add @kt3k/gameloop
 ```
 
+or, in Deno:
+
+```sh
+deno add @kt3k/gameloop
+```
+
 # Usage
 
 ```js
