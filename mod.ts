@@ -6,51 +6,65 @@ export interface Gameloop {
   stop(): void;
   /** Returns true iff the loop is running */
   get isRunning(): boolean;
+  /** Register callback which called each step of the frame with the current fps. */
+  onStep(callback: (fps: number) => void): void;
 }
 
 class GameloopImpl {
-  main: () => void;
-  timer: number | undefined;
-  frame: number;
-  resolve: undefined | (() => void);
+  #main: () => void;
+  #timer: number | undefined;
+  #frame: number;
+  #resolve: undefined | (() => void);
+  #onStep: undefined | ((fps: number) => void);
+  #fps: number;
   constructor(main: () => void, fps: number) {
-    this.main = main;
-    this.frame = 1000 / fps;
+    this.#main = main;
+    this.#fps = fps;
+    this.#frame = 1000 / fps;
   }
 
   /** Starts the game loop. */
   run(): Promise<void> {
-    if (this.resolve) {
+    if (this.#resolve) {
       return Promise.reject(new Error("The gameloop is already running."));
     }
     return new Promise<void>((resolve, _) => {
-      this.resolve = resolve;
+      this.#resolve = resolve;
       this.#step();
     });
   }
 
   /** Returns true iff the loop is running. */
   get isRunning(): boolean {
-    return this.resolve != null;
+    return this.#resolve != null;
   }
 
   /** Performs the step routine. */
   #step = (): void => {
     const startedAt = Date.now();
-    this.main();
+    this.#main();
     const endedAt = Date.now();
-    const wait = this.frame - (startedAt - endedAt);
-    this.timer = setTimeout(this.#step, wait);
+    const duration = endedAt - startedAt;
+    const wait = this.#frame - duration;
+    const fps = Math.min(1000 / duration, this.#fps);
+    if (this.#onStep) {
+      this.#onStep(fps);
+    }
+    this.#timer = setTimeout(this.#step, wait);
   };
 
   /** Stops the game loop. */
   stop(): void {
-    if (!this.resolve) {
+    if (!this.#resolve) {
       throw new Error("The gameloop isn't running.");
     }
-    this.resolve();
-    delete this.resolve;
-    clearTimeout(this.timer);
+    this.#resolve();
+    this.#resolve = undefined;
+    clearTimeout(this.#timer);
+  }
+
+  onStep(callback: undefined | ((fps: number) => void)): void {
+    this.#onStep = callback;
   }
 }
 
