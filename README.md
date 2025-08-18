@@ -20,13 +20,13 @@ deno add @kt3k/gameloop
 # Usage
 
 ```js
-import { gameloop } from "@kt3k/gameloopjs";
+import { Gameloop } from "@kt3k/gameloopjs";
 
-const loop = gameloop(() => {
+const loop = new Gameloop(30, () => {
   console.loog("step");
-}, 30);
+});
 
-loop.run();
+loop.start();
 
 setTimeout(() => {
   loop.stop();
@@ -35,36 +35,9 @@ setTimeout(() => {
 
 `func` is called 30 times per second and is stopped after 5 seconds.
 
-## Set other fps
-
-Set different number for fps:
-
-```js
-const loop = gameloop(func, 60);
-
-loop.run(); // runs at 60 fps
-```
-
 # API
 
-## `gameloop(func: () => void, fps: number)`
-
-Creates a game loop object.
-
-## `loop.run(): Promise<void>`
-
-Starts the game loop and returns a promise which will resolve when the loop is
-stopped.
-
-This throws when it's called during it's already running.
-
-## `loop.stop(): void`
-
-Stops the game loop.
-
-## `loop.isRunning: boolean`
-
-Returns true iff the loop if running.
+See [API doc](https://jsr.io/@kt3k/gameloop/doc)
 
 # License
 

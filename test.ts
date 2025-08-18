@@ -1,25 +1,25 @@
-import { gameloop } from "./mod.ts";
+import { Gameloop } from "./mod.ts";
 import { assert, assertEquals, assertRejects, assertThrows } from "@std/assert";
 import { assertSpyCalls, spy } from "@std/testing/mock";
 
 Deno.test("gameloop", async () => {
   let cnt = 0;
   const fn = spy();
-  const loop = gameloop(() => {
+  const loop = new Gameloop(30, () => {
     cnt++;
     let a = 0;
     for (let i = 0; i < 100000; i++) {
       // Simulate some work
       a += i * i;
     }
-  }, 30);
+  });
   loop.onStep(fn);
 
   setTimeout(() => {
     loop.stop();
   }, 1005);
 
-  let run = loop.run();
+  let run = loop.start();
 
   assert(loop.isRunning);
 
@@ -41,23 +41,23 @@ Deno.test("gameloop", async () => {
 
   // It throws at the 2nd run
   await assertRejects(async () => {
-    const loop = gameloop(() => {
+    const loop = new Gameloop(30, () => {
       cnt++;
-    }, 30);
+    });
     setTimeout(() => {
       loop.stop();
     }, 0);
-    run = loop.run();
-    await loop.run(); // throws
+    run = loop.start();
+    await loop.start(); // throws
   });
 
   await run;
 
   // It throws at the 2nd run
   assertThrows(() => {
-    const loop = gameloop(() => {
+    const loop = new Gameloop(30, () => {
       cnt++;
-    }, 30);
+    });
     loop.stop(); // throws
   });
 });

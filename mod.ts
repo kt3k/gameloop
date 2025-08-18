@@ -1,30 +1,41 @@
-/** Gameloop object interface */
-export interface Gameloop {
-  /** Starts the game loop */
-  run(): Promise<void>;
-  /** Stops the game loop */
-  stop(): void;
-  /** Returns true iff the loop is running */
-  get isRunning(): boolean;
-  /** Register callback which called each step of the frame with the current fps. */
-  onStep(callback: (fps: number, v: number) => void): void;
-}
-
-class GameloopImpl {
+/**
+ * Gameloop object of the given main function and fps (frames per second).
+ *
+ * @example
+ * ```ts
+ * import { Gameloop } from "jsr:@kt3k/gameloop";
+ *
+ * const loop = new Gameloop(60, () => {
+ *   // draw something in screen
+ * });
+ *
+ * loop.run();
+ *
+ * // stop the loop after 10 seconds
+ * setTimeout(() => {
+ *  loop.stop();
+ * }, 10000);
+ * ```
+ *
+ * @param fps The number of frames per second.
+ * @param main The main function to be called in each frame.
+ * @returns A gameloop object.
+ */
+export class Gameloop {
   #main: () => void;
   #timer: number | undefined;
   #frame: number;
   #resolve: undefined | (() => void);
   #onStep: undefined | ((fps: number, v: number) => void);
   #fps: number;
-  constructor(main: () => void, fps: number) {
+  constructor(fps: number, main: () => void) {
     this.#main = main;
     this.#fps = fps;
     this.#frame = 1000 / fps;
   }
 
   /** Starts the game loop. */
-  run(): Promise<void> {
+  start(): Promise<void> {
     if (this.#resolve) {
       return Promise.reject(new Error("The gameloop is already running."));
     }
@@ -67,31 +78,4 @@ class GameloopImpl {
   onStep(callback: undefined | ((fps: number, v: number) => void)): void {
     this.#onStep = callback;
   }
-}
-
-/**
- * Creates a gameloop object from the given main function and fps (frames per second).
- *
- * @example
- * ```ts
- * import { gameloop } from "@kt3k/gameloop";
- *
- * const loop = gameloop(() => {
- *   // draw something in screen
- * });
- *
- * loop.run();
- *
- * // stop the loop after 10 seconds
- * setTimeout(() => {
- *  loop.stop();
- * }, 10000);
- * ```
- *
- * @param main The main function to be called in each frame.
- * @param fps The number of frames per second.
- * @returns A gameloop object.
- */
-export function gameloop(main: () => void, fps: number): Gameloop {
-  return new GameloopImpl(main, fps);
 }
