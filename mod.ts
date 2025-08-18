@@ -52,9 +52,9 @@ export class Gameloop {
 
   /** Performs the step routine. */
   #step = (): void => {
-    const startedAt = Date.now();
+    const startedAt = performance.now();
     this.#main();
-    const endedAt = Date.now();
+    const endedAt = performance.now();
     const duration = endedAt - startedAt;
     const wait = this.#frame - duration;
     const v = 1000 / duration;
