@@ -7,7 +7,7 @@ export interface Gameloop {
   /** Returns true iff the loop is running */
   get isRunning(): boolean;
   /** Register callback which called each step of the frame with the current fps. */
-  onStep(callback: (fps: number) => void): void;
+  onStep(callback: (fps: number, v: number) => void): void;
 }
 
 class GameloopImpl {
@@ -15,7 +15,7 @@ class GameloopImpl {
   #timer: number | undefined;
   #frame: number;
   #resolve: undefined | (() => void);
-  #onStep: undefined | ((fps: number) => void);
+  #onStep: undefined | ((fps: number, v: number) => void);
   #fps: number;
   constructor(main: () => void, fps: number) {
     this.#main = main;
@@ -46,9 +46,10 @@ class GameloopImpl {
     const endedAt = Date.now();
     const duration = endedAt - startedAt;
     const wait = this.#frame - duration;
-    const fps = Math.min(1000 / duration, this.#fps);
+    const v = 1000 / duration;
+    const fps = Math.min(v, this.#fps);
     if (this.#onStep) {
-      this.#onStep(fps);
+      this.#onStep(fps, v);
     }
     this.#timer = setTimeout(this.#step, wait);
   };
@@ -63,7 +64,7 @@ class GameloopImpl {
     clearTimeout(this.#timer);
   }
 
-  onStep(callback: undefined | ((fps: number) => void)): void {
+  onStep(callback: undefined | ((fps: number, v: number) => void)): void {
     this.#onStep = callback;
   }
 }

@@ -7,6 +7,11 @@ Deno.test("gameloop", async () => {
   const fn = spy();
   const loop = gameloop(() => {
     cnt++;
+    let a = 0;
+    for (let i = 0; i < 100000; i++) {
+      // Simulate some work
+      a += i * i;
+    }
   }, 30);
   loop.onStep(fn);
 
@@ -25,8 +30,10 @@ Deno.test("gameloop", async () => {
   assert(cnt === 27 || cnt === 28 || cnt === 29 || cnt === 30);
 
   assertSpyCalls(fn, cnt);
-  assertSpyCallArgs(fn, 0, [30]);
-  assertSpyCallArgs(fn, cnt - 1, [30]);
+  assert(fn.calls[0].args[0] === 30);
+  assert(fn.calls[0].args[1] > 30);
+  assert(fn.calls[cnt - 1].args[0] === 30);
+  assert(fn.calls[cnt - 1].args[1] > 30);
 
   // cnt is not incremented anymore
   await new Promise<void>((resolve) => setTimeout(() => resolve(), 1000));
