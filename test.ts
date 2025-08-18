@@ -1,6 +1,6 @@
 import { gameloop } from "./mod.ts";
 import { assert, assertEquals, assertRejects, assertThrows } from "@std/assert";
-import { assertSpyCallArgs, assertSpyCalls, spy } from "@std/testing/mock";
+import { assertSpyCalls, spy } from "@std/testing/mock";
 
 Deno.test("gameloop", async () => {
   let cnt = 0;
